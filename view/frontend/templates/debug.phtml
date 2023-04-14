@@ -1,0 +1,30 @@
+<?php declare(strict_types=1);
+
+/** @var \Magento\Framework\View\Element\Template $block */
+
+use Magento\Framework\View\Element\AbstractBlock;
+
+$variables = (array)$block->getVariables();
+?>
+<div class="debug">
+    <h4>Template variables</h4>
+    <ul>
+    <?php foreach ($variables as $variableName => $variable) : ?>
+    <li>
+        <code><?= $variableName ?></code>:
+        <?= is_object($variable) ? get_class($variable) : gettype($variable) ?>
+
+        <ul>
+        <?php if ($variable instanceof AbstractBlock): ?>
+        <?php foreach ($variable->getData() as $dataName => $dataValue): ?>
+        <li>
+            <code><?= $dataName ?></code>:
+            <?= is_object($dataValue) ? get_class($dataValue) : gettype($dataValue) ?>
+        </li>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        </ul>
+    </li>
+    <?php endforeach; ?>
+    </ul>
+</div>
